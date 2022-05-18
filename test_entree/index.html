@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="CSS/style.css">
+
+        <title>Selection place</title>
+    </head>
+    <body>
+        <div id="app">
+
+            <div>
+                Quelle est le nombre de place que vous désirez ?
+                <input type="number" min="1" v-bind:max="dimension.colonne" v-model="nbPlace">
+            </div> 
+            
+            <div v-if="nbPlace > 0">
+                Quelle rangée ?
+                <input type="number" min="1" max="9" v-model="numRangee">
+                <button v-if="numRangee > 0 && !afficherSalle" v-on:click="addToSelected">Valider</button>
+            </div>
+
+            <div v-show="afficherSalle">
+
+                <ol>
+                    <li v-for="r in dimension.rangee">
+                        <span v-for="c in dimension.colonne">
+                            <span v-if="places.has(r.toString()) && c <= places.get(r.toString()) "> [X] </span>
+                            <span v-else> [_] </span>
+                        </span>
+                    </li>
+                </ol>
+
+                <button v-on:click="renitialisation">Commander de nouvelles places</button>
+            </div>
+
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+        <script src="JS/script.js"></script>
+
+    </body>
+</html>
